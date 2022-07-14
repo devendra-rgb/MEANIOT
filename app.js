@@ -36,7 +36,7 @@ app.post('/light',(req,res) =>
 {
     console.log(req.body.status);
     arduinoSerialPort.write(req.body.status);
-    res.send('<h1>Light is switched on</h1>')
+    res.send('<h1>Light is switchedi on</h1>')
 
 })
 
