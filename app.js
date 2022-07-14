@@ -1,7 +1,18 @@
 const Express=require('express')
 const app =Express()
+//const comport= require('./arduino.js')
 const port=3000;
+var {SerialPort} = require("serialport");
 
+app.use(Express.json())
+
+var arduinoCOMPort = "COM6";
+
+var arduinoSerialPort = new SerialPort({  
+    path: arduinoCOMPort,
+    baudRate: 9600
+    
+   });
 
 app.get('/',(req,res) => 
 {
@@ -17,6 +28,14 @@ app.get('/motor',(req,res) =>
 
 app.get('/light',(req,res) => 
 {
+    res.send('<h1>Light is switched on</h1>')
+
+})
+
+app.post('/light',(req,res) => 
+{
+    console.log(req.body.status);
+    arduinoSerialPort.write(req.body.status);
     res.send('<h1>Light is switched on</h1>')
 
 })
